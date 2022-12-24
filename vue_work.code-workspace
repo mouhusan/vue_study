@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "/root"
+    },
+    {
+      "path": "../shared"
+    }
+  ],
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "ash",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "prettier.singleQuote": true
+  }
+}
