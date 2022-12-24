@@ -5,3 +5,4 @@ apk add --update nodejs npm
 npm init vite@latest hello_world
 npm update
 npm run dev
+npm install --save destyle.css
