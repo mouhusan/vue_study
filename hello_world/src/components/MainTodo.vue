@@ -1,45 +1,32 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { todoSubRoutines } from '../composables/useTodoList';
 
+const {todoListRef, add, show, edit, del, check} = todoSubRoutines();
 const isEditRef = ref<boolean>(false);
 const todoRef = ref('');
-const todoListRef = ref<any[]>([]);
-const localTODOList = localStorage.todoList;
-todoListRef.value = localTODOList ? JSON.parse(localTODOList) : [];
 
 let editId = -1;
 
 const addTodo = () => {
-  const id = new Date().getTime();
-  // save value web storage
-  todoListRef.value.push({ id: id, task: todoRef.value });
-  localStorage.todoList = JSON.stringify(todoListRef.value);
-  console.log(todoRef.value);
+  add(todoRef.value);
   todoRef.value = '';
 };
 
 const showTodo = (id: number) => {
   isEditRef.value = true;
-  const answer = todoListRef.value.find((x) => x.id === id);
-  todoRef.value = answer.task;
-  editId = id;
+  todoRef.value= show(id);
 };
 const editTodo = () => {
   isEditRef.value = false;
-  const answer = todoListRef.value.find((x) => x.id === editId);
-  answer.task = todoRef.value;
-  localStorage.todoList = JSON.stringify(todoListRef.value);
-  editId = -1;
+  edit(todoRef.value)
   todoRef.value = '';
 };
 const deleteTodo = (id: number) => {
-  const answer = todoListRef.value.find((x) => x.id === id);
-  todoRef.value = answer.task;
-  const delMsg = `「${answer.task}」を削除しますか?`;
-  if (!confirm(delMsg)) return;
-  const idx = todoListRef.value.findIndex((x) => x.id === id);
-  todoListRef.value.splice(idx, 1);
-  localStorage.todoList = JSON.stringify(todoListRef.value);
+  del(id);
+};
+const changeCheck= (id: number) => {
+  check(id);
 };
 </script>
 <template>
