@@ -1,8 +1,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+
 const todoRef = ref('');
+const todoListRef = ref<object[]>([]);
+
 const addTodo = () => {
+  const id = new Date().getTime();
+  // save value web storage
+  todoListRef.value.push({ id: id.toString(), task: todoRef.value });
+  localStorage.todoList = todoListRef.value;
   console.log(todoRef.value);
+  todoRef.value = '';
 };
 </script>
 <template>
